@@ -1,12 +1,12 @@
-void insert_sort(int num, int* list. int* result)
+void insert_sort(int num, int* list, int* result)
 {
 	int key;
 	int exchange;
-	*result = *list
+	*result = *list;
 	for(int i = 1; i < num; i++)
 	{	
 
-		key = *(result+i) = *(list+i)
+		key = *(result+i) = *(list+i);
 		int j = i;
 		while( (key < *(result + j) ) && (j > 0))
 		{

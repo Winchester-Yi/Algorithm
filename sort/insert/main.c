@@ -9,10 +9,9 @@ int main()
 	int result[MAX_NUM];
 	int i=0;
 	printf("Plese enter numbers:\n");
-	wihle( (scanf("%d",num[i])) && (*(num+i)!= "\n"))
-	{
-		i++;
-	}
+	do{
+		scanf("%d",&num[i++]);
+	}while(*(num+i-1)!= "\n");
 	insert_sort(i, num, result);
 	return 0;
 }
