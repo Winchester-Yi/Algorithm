@@ -81,7 +81,7 @@ void heap_sort(int num, int* list, int* result)
 Input:the length of the array, the array
 Output:the sorted array
 *************************************************/
-int max_heap(int *tree, int i)
+int max_heap(int *tree, int i, int heapSize)
 {
 	int maxIndex;
 	int l = i<<1;
@@ -102,26 +102,32 @@ int max_heap(int *tree, int i)
 		*(tree+maxIndex) = exchange;
 	}
 
-	max_heap(tree, maxIndex);
+	max_heap(tree, maxIndex, heapSize);
 
 	return 0;
 }
 
-int build_max_heap(int *array, int size)
+int build_max_heap(int *array, int heapSize)
 {
 	int i;
-	for ( i=floor(size/2); i>0; i-- )
+	for ( i=floor(heapSize/2); i>0; i-- )
 		build_max_heap(array, i);
 	return 0;
 }
 
-int heap_sort(int *array, int &size)
+int heap_sort(int *array, int heapSize)
 {
 	int i;
-	build_max_heap(array, *size);
-	for ( i=size; i>1; i-- )
+	int exchange;
+
+	build_max_heap(array, heapSize);
+	for ( i=heapSize; i>1; i-- )
 	{
-		*size
+		exchange = *(array+i);
+		*(array+i) = *(array);
+		*(array) = exchange;
+		heapSize = heapSize - 1;
+		max_heap(array, 1, heapSize);
 	}
 	return 0;
 }
