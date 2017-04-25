@@ -131,3 +131,51 @@ int heap_sort(int *array, int heapSize)
 	}
 	return 0;
 }
+/*************************************************
+quick_sort
+int quick_sort(int *array, int size)
+
+Input:the length of the array, the array
+Output:the sorted array
+*************************************************/
+int partition(int *array, int head, int tail)
+{
+	int i;
+	int exchange;
+
+	int base = *(array+tail-1);
+	int watch = head;
+
+	for(i=head; i<tail; i++)
+	{
+		if( *(array+i)<base )
+		{
+			exchange = *(array+watch);
+			*(array+watch) = *(array+i);
+			*(array+i) = exchange;
+			watch++;
+		}
+
+	}
+	*(array+tail-1) = *(array+watch);
+	*(array+watch) = base;
+	return watch;
+}
+
+int _quick_sort_(int *array, int head, int tail)
+{
+	int partNum;
+	if ( head<tail )
+	{
+		partNum = partition(array, head, tail);
+		quick_sort(array, head, partNum-1);
+		quick_sort(array, partNum+1, tail);
+	}
+	return 0;
+}
+
+int quick_sort(int *array, int size)
+{
+	_quick_sort_(array, 0, size);
+	return 0;
+}
