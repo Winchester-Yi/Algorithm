@@ -179,3 +179,29 @@ int quick_sort(int *array, int size)
 	_quick_sort_(array, 0, size);
 	return 0;
 }
+
+/*************************************************
+count_sort
+int count_sort(int *array, int size)
+
+Input:the length of the array, the array
+Output:the sorted array
+*************************************************/
+int count_sort(int *a, int *result, int length, int k)
+{
+	int* b = int* malloc(k);
+	for (int i=0; i<length; i++)
+	{
+		*(b+*(a+i))++;
+	}
+	for (int i=0; i<length; i++)
+	{
+		*(b+i+1)+=*(b+i);
+	}
+	for (int i=length; i>=0; i--)
+	{
+		*(result+*(b+*(a+i))) = *(a+i);
+		*(b+*(a+i))--;
+	}
+	return 0;
+}
