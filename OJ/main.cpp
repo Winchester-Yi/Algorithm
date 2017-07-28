@@ -1,43 +1,18 @@
-//Problem 1002
-//#define _crt_secure_no_warnings
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//
-//int main()
-//{
-//    int times;
-//    int i;
-//    char *num;
-//    while ((scanf("%d", &times)) != eof)
-//    {
-//        num = (char *)calloc(times*2, sizeof(char));
-//        for (i = 0; i<times; i++)
-//        {
-//            scanf("%ld%ld", num+i,num+i+1);
-//        }
-//        for (i = 0; i<times; i++)
-//        {
-//            printf("case %d:\n%ld + %ld = %ld\n\n", i+1, num[i], num[i+1], num[i] + num[i+1]);
-//        }
-//        free(num);
-//     }
-//	return 0;
-//}
-
-//Problem 1003
+////Problem 1003
 #define _crt_secure_no_warnings
 #include <stdio.h>
+#include <ctype.h>
 
 int *findMaxCrossingSubarray(int *a, int low, int mid, int high);
 int *findMaxSubarray(int *a, int low, int high);
 
 int main()
 {
-    int *a;
-    int len;
+    int a[] = { 6, -1, 5, 4, - 7 };
+    int *result;
 
-    findMaxSubarray(a,1,len);
+    result=findMaxSubarray(a, 1, 5);
+    printf("low:%d\nhigh:%d\nsum:%d ", *a, *(a + 1), *(a + 2));
     return 0;
 }
 
@@ -71,7 +46,7 @@ int *findMaxCrossingSubarray(int *a,int low,int mid,int high)
     }
     result[0] = maxLeft;
     result[1] = maxRight;
-    result[0] = leftSum + rightSum;
+    result[2] = leftSum + rightSum;
     return result;
 }
 
@@ -80,19 +55,30 @@ int *findMaxSubarray(int *a,int low,int high)
     int mid;
     int *left;
     int *right;
+    int *cross;
+
+    int result[3];
 
     if (low == high)
     {
-        result[0] = left;
-        result[1] = right;
-        result[2] = sum;
+        result[0] = low;
+        result[1] = high;
+        result[2] = *(a+low);
+        return result;
     }
     else
     {
         mid = (low + high) / 2;
         left = findMaxSubarray(a, low, mid);
         right = findMaxSubarray(a, mid + 1, high);
-        findMaxCrossingSubarray(a, low, mid, high);
+        cross = findMaxCrossingSubarray(a, low, mid, high);
+        if (*(left + 2) > *(right + 2) && *(left + 2) > *(cross + 2))
+            return left;
+        else if (*(right + 2) > *(left + 2) && *(right + 2) > *(cross + 2))
+        {
+            return right;
+        }
+        else
+            return cross;
     }
-    return;
 }
